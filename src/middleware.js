@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export function middleware(req) {
     const response = new NextResponse();
     let userCookie = req.cookies.get("user");
-    console.log(userCookie);
     let user = {};
     if (userCookie) {
         user = JSON.parse(userCookie.value);

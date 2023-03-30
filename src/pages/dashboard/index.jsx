@@ -3,21 +3,18 @@ import Link from "next/link";
 export default function Dashboard() {
     return (
         <>
-            <div className="container">
-                <div className="dashboard flex flex-row gap-2">
-                    <aside className="dash-sidebar w-20 bg-white">
-                        sidebar
-                    </aside>
-                    <div className="dash-content w-80">
-                        <div className="bg-white">
-                            <div className="flex gap-1">
-                                <div>
-                                    <Link href="/dashboard/phones">Phones</Link>
-                                </div>
-                                <div>
-                                    <Link href="/dashboard/offers">Offers</Link>
-                                </div>
-                            </div>
+            <div class="sub-header">
+                <div class="sub-header-box box-section border-radius-15">
+                    <h1 class="ts-1">Welcome to my Dashboard</h1>
+                    <h4 class="ts-4">Please choose an action</h4>
+                    <div className="flex gap-1 justify-center mgy-4">
+                        <div>
+                            <Link href="/dashboard/phones">Phones</Link>
+                        </div>
+                        <div>
+                            <Link href="/dashboard/top-contracts">
+                                Top Contracts
+                            </Link>
                         </div>
                     </div>
                 </div>

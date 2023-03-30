@@ -1,14 +1,24 @@
 import Link from "next/link";
 import { useState } from "react";
+import NavSearch from "./NavSearch";
 
 export default function Navbar() {
     const [isActive, setActive] = useState(false);
+    const [showNavSearch, setShowNavSearch] = useState(false);
     const toggleClass = () => setActive(!isActive);
+    const toggleNavSearch = () => setShowNavSearch(!showNavSearch);
 
     return (
         <header className="header">
             <div className="container">
+                <NavSearch isVisible={showNavSearch} toggle={toggleNavSearch} />
                 <nav className={isActive ? "nav-bar is-active" : "nav-bar"}>
+                    <div className="nav-mob-search-icon hidden-desktop">
+                        <span
+                            className="bi bi-search"
+                            onClick={toggleNavSearch}
+                        ></span>
+                    </div>
                     <div className="nav-start">
                         <div className="nav-logo">PriceComp</div>
                     </div>
@@ -21,10 +31,13 @@ export default function Navbar() {
                                 <Link href="/phones">All Phones</Link>
                             </li>
                             <li>
-                                <Link href="/">About Us</Link>
+                                <Link href="/about-us">About Us</Link>
                             </li>
-                            <li>
-                                <Link href="/">Search</Link>
+                            <li className="hidden-mob">
+                                <span
+                                    className="bi bi-search"
+                                    onClick={toggleNavSearch}
+                                ></span>
                             </li>
                         </ul>
                     </div>

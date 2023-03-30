@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Layout from "../components/Layout";
 import DashboardLayout from "../components/DashboardLayout";
 

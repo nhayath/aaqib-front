@@ -21,7 +21,7 @@ export default function DashboardNavbar({ user }) {
                                 <Link href="/dashboard/phones">Phones</Link>
                             </li>
                             <li>
-                                <Link href="/dashboard/offers">Offers</Link>
+                                <Link href="/dashboard/users">Users</Link>
                             </li>
                             <li>
                                 <Link href="/logout">

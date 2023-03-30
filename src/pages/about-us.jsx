@@ -7,7 +7,7 @@ export default function Home({ topPicks }) {
     return (
         <>
             <Head>
-                <title>Find Your Dream Contract Phone</title>
+                <title>About Us</title>
                 <meta
                     name="description"
                     content="Looking for a contract phone deal, we are here to help."
@@ -19,11 +19,13 @@ export default function Home({ topPicks }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <HomeHero />
-
-            <main>
-                <TopPicks docs={topPicks} />
-            </main>
+            <div class="sub-header">
+                <div class="container">
+                    <div class="sub-header-box box-section border-radius-15">
+                        <h1 class="ts-1">About Us</h1>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

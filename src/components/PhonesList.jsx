@@ -10,8 +10,40 @@ export default function PhonesList({ items }) {
                         <img src={d.image} alt={d.name} width="100%" />
                     </Link>
                 </figure>
-                <div class="text-center">
+                <div className="text-center">
                     <Link href={"/offers/" + d.slug}>{d.name}</Link>
+                </div>
+                <div className="flex space-between mgy-2 bg-grey">
+                    <div>
+                        {d?.deal?.contract && (
+                            <>
+                                <p className="text-small text-grey mg-1">
+                                    contract from
+                                </p>
+                                <p className="mg-1">
+                                    &pound;{d?.deal?.contract?.cost} month
+                                </p>
+                            </>
+                        )}
+                        {d?.deal?.simfree && (
+                            <>
+                                <p className="text-small text-grey mg-1">
+                                    Simfree from
+                                </p>
+                                <p className="mg-1">
+                                    &pound;{d?.deal?.simfree?.cost}
+                                </p>
+                            </>
+                        )}
+                    </div>
+                    <div className="flex align-center">
+                        <Link
+                            href={"/offers/" + d.slug}
+                            className="btn bg-primary text-white"
+                        >
+                            view deals
+                        </Link>
+                    </div>
                 </div>
             </article>
         );
