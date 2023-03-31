@@ -4,7 +4,7 @@ export default function PhoneOffers({ offers }) {
         let row = (
             <div className="offer bg-white flex space-around" key={idx}>
                 <div className="offer-start flex flex-row space-between flex-3">
-                    <div class="offer-network flex-1 flex align-center justify-center flex-column">
+                    <div className="offer-network flex-1 flex align-center justify-center flex-column">
                         <p className="text-small text-grey">Store</p>
                         <b>{offer.store}</b>
                     </div>

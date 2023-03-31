@@ -4,12 +4,12 @@ export default function PhoneOffers({ offers }) {
         let row = (
             <div className="offer bg-white flex space-around" key={idx}>
                 <div className="offer-start flex flex-row space-between flex-3">
-                    <div class="offer-network flex-1 flex align-center justify-center flex-column">
+                    <div className="offer-network flex-1 flex align-center justify-center flex-column">
                         <p className="text-small text-grey">Network</p>
                         <b>{offer.network}</b>
                     </div>
                     <div className="offer-tariff flex-3">
-                        <p class="text-grey text-small">Plan Includes</p>
+                        <p className="text-grey text-small">Plan Includes</p>
                         <p>
                             <strong>
                                 {offer.deal.data === -1
@@ -41,7 +41,7 @@ export default function PhoneOffers({ offers }) {
                         <p className="text-small text-grey">Upfront cost:</p>
                         <p>&pound;{offer.deal.upfrontCost}</p>
                         <p className="text-small text-grey">Monthly cost:</p>
-                        <p class="text-bold">&pound;{offer.deal.cost}</p>
+                        <p className="text-bold">&pound;{offer.deal.cost}</p>
                     </div>
                     <div className="offer-cost flex-1 flex align-center justify-center flex-column">
                         <strong>{offer.deal.contractLength}</strong> months

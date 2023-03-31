@@ -28,13 +28,11 @@ export default function Phones({ data }) {
                         <th>Image</th>
                         <th>Name</th>
                         <th>
-                            <Link href="/dashboard/phones/add">
-                                <Link
-                                    href="/dashboard/phones/add"
-                                    className="btn bg-primary text-white"
-                                >
-                                    + Add new
-                                </Link>
+                            <Link
+                                href="/dashboard/phones/add"
+                                className="btn bg-primary text-white"
+                            >
+                                + Add new
                             </Link>
                         </th>
                     </tr>

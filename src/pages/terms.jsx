@@ -1,7 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import HomeHero from "../components/HomeHero";
-import TopPicks from "../components/TopPicks";
 
 export default function Home({ topPicks }) {
     return (
@@ -19,25 +16,13 @@ export default function Home({ topPicks }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div class="sub-header">
-                <div class="container">
-                    <div class="sub-header-box box-section border-radius-15">
-                        <h1 class="ts-1">Terms & Conditions</h1>
+            <div className="sub-header">
+                <div className="container">
+                    <div className="sub-header-box box-section border-radius-15">
+                        <h1 className="ts-1">Terms & Conditions</h1>
                     </div>
                 </div>
             </div>
         </>
     );
-}
-
-export async function getServerSideProps({ req }) {
-    let token = req.cookies.token;
-    // console.log(token);
-    let res = await fetch(
-        `${process.env.API_URL}/options/m/top-contract-phone-deals`
-    );
-
-    let data = await res.json();
-
-    return { props: { topPicks: data.docs } };
 }

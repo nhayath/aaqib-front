@@ -9,7 +9,7 @@ export default function PhoneInfo({ phone }) {
 
             <div className="pi-details">
                 <h1>{phone.name}</h1>
-                <article class="hidden-mob">{phone.description}</article>
+                <article className="hidden-mob">{phone.description}</article>
                 <ul className="pi-features mg-0 pd-0">
                     <li className="flex gap-1 mgy-1">
                         <span>Color: </span>
