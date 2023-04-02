@@ -1,9 +1,18 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import cookie from "js-cookie";
 
-export default function DashboardNavbar({ user }) {
+export default function DashboardNavbar() {
     const [isActive, setActive] = useState(false);
     const toggleClass = () => setActive(!isActive);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        let ck = cookie.get("user");
+        if (ck.length) {
+            setUser(JSON.parse(ck));
+        }
+    }, []);
 
     return (
         <header className="header">
@@ -25,7 +34,7 @@ export default function DashboardNavbar({ user }) {
                             </li>
                             <li>
                                 <Link href="/logout">
-                                    {user && user.name} (Logout)
+                                    {user && user?.name} (Logout)
                                 </Link>
                             </li>
                         </ul>

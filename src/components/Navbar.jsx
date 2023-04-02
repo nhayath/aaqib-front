@@ -20,18 +20,43 @@ export default function Navbar() {
                         ></span>
                     </div>
                     <div className="nav-start">
-                        <div className="nav-logo">PriceComp</div>
+                        <div className="nav-logo">
+                            <Link href="/">uFind</Link>
+                        </div>
                     </div>
                     <div className="nav-end">
                         <ul className="nav-menu">
                             <li>
-                                <Link href="/">Home</Link>
+                                <Link
+                                    href="/phones"
+                                    onClick={() => setActive(false)}
+                                >
+                                    Phones
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/phones">All Phones</Link>
+                                <Link
+                                    href="/contracts"
+                                    onClick={() => setActive(false)}
+                                >
+                                    Contracts
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/about-us">About Us</Link>
+                                <Link
+                                    href="/simfree-offers"
+                                    onClick={() => setActive(false)}
+                                >
+                                    Simfree
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/simonly-offers"
+                                    onClick={() => setActive(false)}
+                                >
+                                    Simonly
+                                </Link>
                             </li>
                             <li className="hidden-mob">
                                 <span

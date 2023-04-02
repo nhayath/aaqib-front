@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import OfferAddForm from "@/components/OfferAddForm";
 
-export default function EditOffer({ phone, doc, token }) {
+export default function AddOffer({ phones, doc, token, cond }) {
     let pathItems = [
         {
             label: "Home",
@@ -10,11 +10,7 @@ export default function EditOffer({ phone, doc, token }) {
         },
         {
             label: "Phones",
-            path: "/dashboard/phones",
-        },
-        {
-            label: phone.name,
-            path: `/dashboard/phones/offers/${phone._id}`,
+            path: "/dashboard/offers",
         },
         {
             label: "Add new",
@@ -25,7 +21,7 @@ export default function EditOffer({ phone, doc, token }) {
     return (
         <>
             <Breadcrumbs items={pathItems} />
-            <OfferAddForm cond={{ phone_id: phone._id }} token={token} />
+            <OfferAddForm phones={phones} token={token} cond={cond} />
         </>
     );
 }
@@ -33,12 +29,12 @@ export default function EditOffer({ phone, doc, token }) {
 export async function getServerSideProps({ req, params, query }) {
     let token = req.cookies.token;
 
-    let res = await fetch(`${process.env.API_URL}/phones/id/${query.id}`, {
+    let res = await fetch(`${process.env.API_URL}/phones/all?limit=all`, {
         Accept: "application/json",
         headers: { Authorization: `Bearer ${token}` },
     });
 
     let data = await res.json();
 
-    return { props: { phone: data.doc, token } };
+    return { props: { phones: data.docs, token, cond: query } };
 }

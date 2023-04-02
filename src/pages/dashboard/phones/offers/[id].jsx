@@ -1,7 +1,29 @@
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
+import { useState } from "react";
 
-export default function PhoneOffers({ phone, offers }) {
+export default function PhoneOffers({ phone, sOffers, token }) {
+    let [offers, setOffers] = useState(sOffers);
+
+    const deleteOffer = async (offer_id) => {
+        if (confirm(`This will permanently delete the doc`)) {
+            try {
+                console.log(`deleting ${offer_id}`, token);
+                let status = await fetch(
+                    `${process.env.API_URL}/offers/delete/${offer_id}`,
+                    {
+                        method: "DELETE",
+                        Accept: "application/json",
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                setOffers(offers.filter((d) => d._id !== offer_id));
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    };
+
     const rows = [];
     offers.map((offer, idx) => {
         let row = (
@@ -49,9 +71,17 @@ export default function PhoneOffers({ phone, offers }) {
 
                 <td>
                     <Link
+                        className="btn btn-outline"
                         href={`/dashboard/phones/offers/edit-offer?id=${offer._id}`}
                     >
                         Edit
+                    </Link>
+                    <Link
+                        className="btn btn-outline"
+                        href="#"
+                        onClick={() => deleteOffer(offer._id)}
+                    >
+                        Delete
                     </Link>
                 </td>
             </tr>
@@ -118,5 +148,5 @@ export async function getServerSideProps({ req, params }) {
 
     let data = await res.json();
 
-    return { props: { phone: data.phone, offers: data.offers } };
+    return { props: { phone: data.phone, sOffers: data.offers, token } };
 }

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-export default function OfferAddForm({ phone, token }) {
+export default function OfferAddForm({ cond, phones, token }) {
     const router = useRouter();
     const {
         register,
@@ -10,8 +10,8 @@ export default function OfferAddForm({ phone, token }) {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            phone_id: phone._id,
-            dealType: "contract",
+            phone_id: cond?.phone_id || null,
+            dealType: cond?.dealType || "contract",
         },
         mode: "onChange",
     });
@@ -31,46 +31,93 @@ export default function OfferAddForm({ phone, token }) {
         });
 
         let newDoc = res.json();
-        return router.push(`/dashboard/phones/offers/${data.phone_id}`);
+        let reUrl =
+            data.dealType === "simonly"
+                ? `/dashboard/offers/simonly`
+                : `/dashboard/phones/offers/${data.phone_id}`;
+        return router.push(reUrl);
     };
+
+    let phoneOptions = [];
+
+    if (!cond?.phone_id) {
+        phones.map((ph, idx) => {
+            let row = (
+                <option value={ph._id} key={idx}>
+                    {ph.name}
+                </option>
+            );
+            phoneOptions.push(row);
+        });
+    }
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register("phone_id")} />
+
                 {/* deal type */}
-                <div className="field is-horizontal">
-                    <div className="field-label">
-                        <label className="label">Type</label>
-                    </div>
+                {!cond?.dealType && (
+                    <div className="field is-horizontal">
+                        <div className="field-label">
+                            <label className="label">Type</label>
+                        </div>
 
-                    <div className="field-body">
-                        <div className="field is-narrow">
-                            <div className="control">
-                                <label className="radio">
-                                    <input
-                                        type="radio"
-                                        value="contract"
-                                        {...register("dealType")}
-                                    />{" "}
-                                    Contract
-                                </label>
+                        <div className="field-body">
+                            <div className="field is-narrow">
+                                <div className="control">
+                                    <label className="radio">
+                                        <input
+                                            type="radio"
+                                            value="contract"
+                                            {...register("dealType")}
+                                        />{" "}
+                                        Contract
+                                    </label>
 
-                                <label className="radio">
-                                    <input
-                                        type="radio"
-                                        value="simfree"
-                                        {...register("dealType")}
-                                    />{" "}
-                                    Simfree
-                                </label>
+                                    <label className="radio">
+                                        <input
+                                            type="radio"
+                                            value="simfree"
+                                            {...register("dealType")}
+                                        />{" "}
+                                        Simfree
+                                    </label>
+                                    {!cond?.phone_id && (
+                                        <label className="radio">
+                                            <input
+                                                type="radio"
+                                                value="simonly"
+                                                {...register("dealType")}
+                                            />{" "}
+                                            Simonly
+                                        </label>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
+
+                {/* phones */}
+                {watchDealType !== "simonly" && !cond?.phone_id && (
+                    <div className="field is-horizontal">
+                        <label className="field-label">Network</label>
+                        <div className="field-body">
+                            <div className="field">
+                                <div className="select">
+                                    <select {...register("phone_id")}>
+                                        <option value="">Select a phone</option>
+                                        {phoneOptions}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* network */}
-                {watchDealType === "contract" && (
+                {watchDealType !== "simfree" && (
                     <div className="field is-horizontal">
                         <label className="field-label">Network</label>
                         <div className="field-body">
@@ -88,7 +135,7 @@ export default function OfferAddForm({ phone, token }) {
                 )}
 
                 {/* data */}
-                {watchDealType === "contract" && (
+                {watchDealType !== "simfree" && (
                     <div className="field is-horizontal">
                         <label className="field-label">Data</label>
                         <div className="field-body">
@@ -106,7 +153,7 @@ export default function OfferAddForm({ phone, token }) {
                 )}
 
                 {/* minutes */}
-                {watchDealType === "contract" && (
+                {watchDealType !== "simfree" && (
                     <div className="field is-horizontal">
                         <label className="field-label">Mintues</label>
                         <div className="field-body">
@@ -124,7 +171,7 @@ export default function OfferAddForm({ phone, token }) {
                 )}
 
                 {/* texts */}
-                {watchDealType === "contract" && (
+                {watchDealType !== "simfree" && (
                     <div className="field is-horizontal">
                         <label className="field-label">Texts</label>
                         <div className="field-body">
@@ -177,8 +224,25 @@ export default function OfferAddForm({ phone, token }) {
                     </div>
                 )}
 
+                {/* Delivery Cost */}
+                <div className="field is-horizontal">
+                    <label className="field-label">Delivery Cost</label>
+                    <div className="field-body">
+                        <div className="field is-narrow">
+                            <div className="control">
+                                <input
+                                    className="input"
+                                    type="number"
+                                    step="any"
+                                    {...register("deal.deliveryCost")}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* contract length */}
-                {watchDealType === "contract" && (
+                {watchDealType !== "simfree" && (
                     <div className="field is-horizontal">
                         <label className="field-label">Contract length</label>
                         <div className="field-body">

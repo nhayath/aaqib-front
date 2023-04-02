@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { slugify } from "../utils/helper";
 
 export default function TopPicksRow({ doc, isAdmin }) {
     return (
@@ -13,11 +14,7 @@ export default function TopPicksRow({ doc, isAdmin }) {
                     {doc.tariff.minutes} Mins & {doc.tariff.sms} SMS
                 </span>
                 <figure>
-                    <img
-                        src="https://media.secure-mobiles.com/network-logos/listing/vodafone.webp"
-                        width="24px"
-                        height="24px"
-                    />
+                    <img src={`/${slugify(doc.network)}.png`} width="24px" />
                 </figure>
             </div>
             <div className="flex space-between">

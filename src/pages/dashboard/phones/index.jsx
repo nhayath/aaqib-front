@@ -1,7 +1,27 @@
+import { useState } from "react";
 import Link from "next/link";
-export default function Phones({ data }) {
+export default function Phones({ data, token }) {
+    let [docs, setDocs] = useState(data.docs);
+    const deletePhone = async (phone_id, phone_name) => {
+        if (confirm(`Delete ${phone_name}`)) {
+            try {
+                console.log(`deleting ${phone_id}`, token);
+                let status = await fetch(
+                    `${process.env.API_URL}/phones/delete/${phone_id}`,
+                    {
+                        method: "DELETE",
+                        Accept: "application/json",
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                setDocs(docs.filter((d) => d._id !== phone_id));
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    };
     const rows = [];
-    data.docs.map((doc, idx) => {
+    docs.map((doc, idx) => {
         let row = (
             <tr key={idx}>
                 <td className="text-center">
@@ -13,7 +33,22 @@ export default function Phones({ data }) {
                     </Link>
                 </td>
                 <td>
-                    <Link href={`/dashboard/phones/edit/${doc._id}`}>Edit</Link>
+                    <Link href={`/dashboard/phones/offers/${doc._id}`}>
+                        Offers
+                    </Link>
+                    <Link
+                        href={`/dashboard/phones/edit/${doc._id}`}
+                        className="btn btn-outline"
+                    >
+                        Edit
+                    </Link>
+                    <Link
+                        className="btn btn-outline"
+                        href="#"
+                        onClick={() => deletePhone(doc._id, doc.name)}
+                    >
+                        Delete
+                    </Link>
                 </td>
             </tr>
         );
@@ -53,5 +88,5 @@ export async function getServerSideProps({ req }) {
 
     let data = await res.json();
 
-    return { props: { data } };
+    return { props: { data, token } };
 }

@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Layout from "../components/Layout";
-import DashboardLayout from "../components/DashboardLayout";
+import Layout from "@/components/Layout";
+import DashboardLayout from "@/components/DashboardLayout";
 
 export default function App({ Component, pageProps, router }) {
     const getLayout = router.pathname.includes("/dashboard")

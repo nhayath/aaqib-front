@@ -1036,3 +1036,10 @@ tr {
     background-color: transparent;
     color: white;
 }
+.btn.btn-pill {
+    background-color: transparent;
+    color: white;
+    outline-color: aqua;
+    outline-style: solid;
+    margin: 0.2rem 0.5rem;
+}

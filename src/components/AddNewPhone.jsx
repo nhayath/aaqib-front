@@ -26,8 +26,8 @@ export default function AddNewPhone({ token }) {
                 body: JSON.stringify(data),
             });
 
-            let newDoc = res.json();
-            return router.push(`/dashboard/phones/offers/${newDoc._id}`);
+            let newDoc = await res.json();
+            return router.push(`/dashboard/phones/offers/${newDoc.doc._id}`);
         } catch (error) {
             alert(error);
         }

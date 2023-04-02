@@ -7,7 +7,7 @@ export default function Home({ topPicks }) {
     return (
         <>
             <Head>
-                <title>Find Your Dream Contract Phone</title>
+                <title>Compare Phones</title>
                 <meta
                     name="description"
                     content="Looking for a contract phone deal, we are here to help."
